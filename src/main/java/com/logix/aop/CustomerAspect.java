@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  *     JournalDev AOP AspectJ Example</a>
  *
  *  @Author Branden Boyington
- *  @version
+ *  @version ${version}
  *  @since 1.0.1-AOP
  */
 @Aspect
