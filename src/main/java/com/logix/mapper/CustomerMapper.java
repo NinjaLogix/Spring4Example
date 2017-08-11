@@ -7,6 +7,13 @@ import com.logix.model.Customer;
 
 import org.springframework.jdbc.core.RowMapper;
 
+/**
+ * This class maps the customer object to the database results. I also put all queries her as well to make this more so
+ * an addition the DAO layer.
+ * @author Branden Boyington
+ * @version ${version}
+ * @since 1.0.0
+ */
 public class CustomerMapper implements RowMapper<Customer> {
 	
     public static final String BASE_SQL = "Select custid, custname, city from customer";

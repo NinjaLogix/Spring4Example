@@ -9,14 +9,16 @@ import com.logix.dao.CustomerDAO;
 import com.logix.model.Customer;
 import com.logix.service.CustomerService;
 
+/**
+ * Customer service implimentation. This class defines the service layer of the application. This layer talks directly
+ * with the DAO layer of the application.
+ * @author Branden Boyington
+ * @version ${version}
+ * @since 1.0.0
+ */
 @Service
 public class CustomerServiceImpl implements CustomerService{
-	
-	/*
-	 * Usually this would be the class that any manipulation would be made
-	 * before passing to the controller. Since this is just a simple
-	 * customer model webservice it's just here for representation.
-	 */
+
 	@Autowired
 	private CustomerDAO custDao;
 	

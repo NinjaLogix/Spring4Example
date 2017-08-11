@@ -2,10 +2,17 @@ package com.logix.model;
 
 import java.io.Serializable;
 
+/**
+ * Customer pojo object definition.
+ * @author Branden Boyington
+ * @version ${version}
+ * @since 1.0.0
+ */
 public class Customer implements Serializable {
-	
-	public int 		custid;
-	public String 	custname, 
+
+	//TODO -- change access modifier to private and modify surrounding code
+	public int 	custid;
+	public String 	custname,
 					city;
 	
 	public Customer() {

@@ -4,6 +4,13 @@ import com.logix.model.Customer;
 
 import java.util.List;
 
+/**
+ * Customer Data Access Object interface definition. This interface defines the entry point to the data access layer.
+ *
+ * @Author Branden Boyington
+ * @version
+ * @since 1.0.0
+ */
 public interface CustomerDAO {
 	/*
 	 * Get a list of all customers

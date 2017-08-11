@@ -10,6 +10,7 @@ import com.logix.model.Customer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -18,11 +19,19 @@ import org.springframework.dao.EmptyResultDataAccessException;
 //import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 
+/**
+ * Customer Data Access Object implimentation. This class is the repository for the customer data access layer intry interface.
+ * This class is also marked as transactional to control database interaction.
+ *
+ * @author Branden Boyington
+ * @version ${version}
+ * @since 1.0.0
+ */
 @Repository //generic annotation to mark as a repository for a service
 @Transactional
 public class CustomerDAOImpl extends JdbcDaoSupport implements CustomerDAO {
 	
-	private final Logger Log = LoggerFactory.getLogger(ComponentController.class);
+	private final Logger Log = LoggerFactory.getLogger(CustomerDAOImpl.class);
 	
 	@Autowired
 	public CustomerDAOImpl(DataSource dataSource) {
@@ -33,6 +42,7 @@ public class CustomerDAOImpl extends JdbcDaoSupport implements CustomerDAO {
 		String sql = CustomerMapper.MAX_ID;
 		
         Integer value = this.getJdbcTemplate().queryForObject(sql, Integer.class);
+        Log.info("CustomerDAOImpl --> value: " + value.toString());
         
         if (value == null)
             return 0;
@@ -130,7 +140,7 @@ public class CustomerDAOImpl extends JdbcDaoSupport implements CustomerDAO {
 		
 		if (exName == 1 && exCity ==1) {
 			Log.info("Can't create customer. A customer with name {} and city {} already exists", cust.getName(), cust.getCity());
-			//throw error message 
+			//TODO -- add exeption here
 		}else {
 			Object[] params = new Object[] { cust.getId(), cust.getName(), cust.getCity()};
 			this.getJdbcTemplate().update(sql, params);			
