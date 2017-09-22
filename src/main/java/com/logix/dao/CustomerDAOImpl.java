@@ -1,177 +1,76 @@
 package com.logix.dao;
 
-import java.util.List;
-
-import javax.sql.DataSource;
-
-import com.logix.controller.ComponentController;
-import com.logix.mapper.CustomerMapper;
+import com.logix.dao.CustomerDAO;
 import com.logix.model.Customer;
+import com.logix.utils.HibernateUtil;
 
+import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.dao.EmptyResultDataAccessException;
-//import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DuplicateKeyException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Customer Data Access Object implimentation. This class is the repository for the customer data access layer intry interface.
- * This class is also marked as transactional to control database interaction.
- *
- * @author Branden Boyington
- * @version ${version}
+ * @author bboyingt
+ * @version 1.0.0
  * @since 1.0.0
  */
-@Repository //generic annotation to mark as a repository for a service
-@Transactional
-public class CustomerDAOImpl extends JdbcDaoSupport implements CustomerDAO {
-	
-	private final Logger Log = LoggerFactory.getLogger(CustomerDAOImpl.class);
-	
-	@Autowired
-	public CustomerDAOImpl(DataSource dataSource) {
-		this.setDataSource(dataSource);
-	}
-	
-	public int getNewCustId() {
-		String sql = CustomerMapper.MAX_ID;
-		
-        Integer value = this.getJdbcTemplate().queryForObject(sql, Integer.class);
-        Log.info("CustomerDAOImpl --> value: " + value.toString());
-        
-        if (value == null)
-            return 0;
-        else
-        	return value += 1;
-	}
-	
-	public int exists(Customer cust){
-		String sql = CustomerMapper.EXISTS;
-		
-		Object[] params = new Object[] { cust.getId(), cust.getName(), cust.getCity() };
-		try {
-			Integer temp = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
-			Log.info("Customer is already created: {}", cust);
-			return temp;
-		}catch (EmptyResultDataAccessException e) {//return 0 when sql is empty
-			Log.info("Customer is avaliable to be created");
-			Log.info("Expeption: {}", e);
-			return 0;
-		}
-	}
-	
-	public int existsId(int id) {
-		String sql = CustomerMapper.EXISTSID;
-		
-		Object[] params = new Object[] { id };
-		try {
-			Integer temp = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
-			return temp;
-		}catch (EmptyResultDataAccessException e) {
-			return 0;
-		}
-	}
-	
-	public int existsName(String name) {
-		String sql = CustomerMapper.EXISTSNAME;
-		
-		Object[] params = new Object[] { name };
-		try {
-			Integer temp = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
-			return temp;
-		}catch (EmptyResultDataAccessException e) {
-			return 0;
-		}
-	}
-	
-	public int existsCity(String city) {
-		String sql = CustomerMapper.EXISTSCITY;
-		
-		Object[] params = new Object[] { city };
-		try {
-			Integer temp = this.getJdbcTemplate().queryForObject(sql, params, Integer.class);
-			return temp;
-		}catch (EmptyResultDataAccessException e) {
-			return 0;
-		}
-	}
-	
-	@Override
-	public List<Customer> getAll(){
-		String sql = CustomerMapper.BASE_SQL;
-		
-		Object[] parms = new Object[] {};
-		CustomerMapper mapper = new CustomerMapper();
-		
-		List<Customer> list = this.getJdbcTemplate().query(sql, parms, mapper);
-		return list;
-	}
-	
-	@Override
-	public Customer getCust(int id) {
-		String sql = CustomerMapper.SINGLE_CUST;
-		Object[] params = new Object[] { id };
-		CustomerMapper mapper = new CustomerMapper();
-		
-		int temp = this.existsId(id);
-		Customer cust = new Customer();
-		
-		if (temp == 1)
-			cust = this.getJdbcTemplate().queryForObject(sql, params, mapper);
-		else
-			Log.info("Customer was not found with id {}", id);
-		
-		return cust;
-		
-	}
-	
-	@Override
-	public void newCust(Customer cust) {
-		String sql = CustomerMapper.SINGLE_INSERT;
-		cust.setId(this.getNewCustId());
-		
-		int exName = this.existsName(cust.getName());
-		int exCity = this.existsCity(cust.getCity());
-		
-		if (exName == 1 && exCity ==1) {
-			Log.info("Can't create customer. A customer with name {} and city {} already exists", cust.getName(), cust.getCity());
-			//TODO -- add exeption here
-		}else {
-			Object[] params = new Object[] { cust.getId(), cust.getName(), cust.getCity()};
-			this.getJdbcTemplate().update(sql, params);			
-		}
-	}
-	
-	@Override
-	public void rmvOne(int id) {
-		String sql = CustomerMapper.RMV_CUST;
-		
-		int exId = this.existsId(id);
-		
-		if (exId == 1) {
-			Object[] params = new Object[] { id };
-	        this.getJdbcTemplate().update(sql, params);
-		}else
-			Log.info("Customer with id {} don't exists", id);
-	}
-	
-	@Override
-	public void updtCustName(int id, String name) {
-		String sql = CustomerMapper.UPDT_CUST_NAME;
-		try {
-			Customer upCust = this.getCust(id);
-			upCust.setName(name);
-			
-			Object[] params = new Object[] { upCust.custname, id };
-			this.getJdbcTemplate().update(sql, params);
-		}catch (EmptyResultDataAccessException e) {
-			Log.info("Failed to update for customer ");
-		}
+@Repository
+public class CustomerDAOImpl implements CustomerDAO {
+	private final Logger log = LoggerFactory.getLogger(CustomerDAOImpl.class);
+	public CustomerDAOImpl(){
+		log.info("CustomerDAOImpl");
 	}
 
+	@Autowired
+	private HibernateUtil hiberUtil;
+
+	@Override
+	public int createCustomer(Customer cust){
+		return (int)  hiberUtil.create(cust);
+	}
+
+	@Override
+	public Customer updateCustomer(Customer cust){
+		return hiberUtil.update(cust);
+	}
+
+	@Override
+	public void deleteCustomer(int id){
+		Customer cust = new Customer();
+		cust.setCustid(id);
+		hiberUtil.delete(cust);
+	}
+
+	@Override
+	public List<Customer> getAllCustomers(){
+		return hiberUtil.fetchAll(Customer.class);
+	}
+
+	@Override
+	public Customer getCustomer(int id){
+		return hiberUtil.fetchById(id, Customer.class);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Customer> getAllCustomers(String custName){
+		//String query = "SELECT * FROM customer e WHERE e.name like '%" + custName + "%'";
+		String query = "from Customer c where c.name like '%" + custName + "%'"; //TODO - fix sql grammar from example
+		List<Object[]> custObjs = hiberUtil.fetchAll(query);
+		List<Customer> custs = new ArrayList<>();
+		for(Object[] custObj: custObjs){
+			Customer cust = new Customer();
+			cust.setCustid((int) custObj[0]);
+			cust.setCustname((String) custObj[1]);
+			cust.setCity((String) custObj[2]);
+		}
+
+		log.info(custs.toString());
+		return custs;
+		//return hiberUtil.fetchAll(custName);
+	}
 }

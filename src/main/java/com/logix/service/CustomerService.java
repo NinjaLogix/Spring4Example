@@ -5,20 +5,15 @@ import java.util.List;
 import com.logix.model.Customer;
 
 /**
- * Customer service definition. This interface defines the entry point to the service layer.
- *
- * @Author Branden Boyington
- * @version
- * @since 1.0.0
+ * Customer Service interface
+ * @author bboyingt
+ * @version ${version}
  */
 public interface CustomerService {
-	List<Customer> getAll();
-	
-	Customer getCust(int id);
-	
-	void newCust(Customer cust);
-	
-	void rmvOne(int id);
-	
-	void updtCustName(int id, String name);
+	public int createCustomer(Customer cust);
+	public Customer updateCustomer(Customer cust);
+	public void deleteCustomer(int id);
+	public List<Customer> getAllCustomers();
+	public Customer getCustomer(int id);
+	public List<Customer> getAllCustomers(String customerName);
 }

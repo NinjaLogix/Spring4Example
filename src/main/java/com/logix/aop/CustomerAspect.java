@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  *      com.logix.service.CustomerServiceImpl.*() ----------> any method with no arguments
  *      com.logix.service.*.*() ----------------------------> any class in the service package with no method arguments
  *
- * Just for lerning purposes I set random annotation pointcuts just to show how they work. @AfterReturning is the most
+ * Just for learning purposes I set random annotation pointcuts just to show how they work. @AfterReturning is the most
  * useful one because you can actually do something with an object via proxy after a pointcut executes.
  * References:
  * - <a href="http://www.journaldev.com/2583/spring-aop-example-tutorial-aspect-advice-pointcut-joinpoint-annotations">
@@ -43,7 +43,7 @@ public class CustomerAspect {
      * @since 1.0.1-AOP
      * @param joinPoint
      */
-    @Before("execution(* com.logix.controller.ComponentController.get(..))")
+    @Before("execution(* com.logix.controller.HibernateController.getAll(..))")
     public void doBefore(JoinPoint joinPoint){
         log.info("@Before ------->" +
                 "\n\t Class --> " + joinPoint.getSignature().getClass().toString() +
@@ -71,7 +71,7 @@ public class CustomerAspect {
      * @param precedingJoinPoint
      * @throws Throwable
      */
-    @Around("execution(* com.logix.service.CustomerService.newCust(..))")
+    @Around("execution(* com.logix.service.CustomerService.createCustomer(..))")
     public void doAround(ProceedingJoinPoint precedingJoinPoint) throws Throwable{
         log.info("@Around ---> @Before ------->" +
                 "\n\t Name --> " + precedingJoinPoint.getSignature().getName() +
@@ -92,8 +92,8 @@ public class CustomerAspect {
      * @since 1.0.1-AOP
      * @param obj
      */
-    @AfterReturning(pointcut = "execution(* com.logix.service.CustomerServiceImpl.getCust(..))",
-                    returning = "obj")
+    @AfterReturning(pointcut = "execution(* com.logix.service.CustomerServiceImpl.getCustomer(..))",
+            returning = "obj")
     public void doAfterReturning(Object obj){
         log.info("@AfterReturning ------> " +
                 "\n\t Customer: " + obj.toString() +
@@ -107,7 +107,7 @@ public class CustomerAspect {
      * @param exception
      */
     @AfterThrowing(pointcut = "execution(* com.logix.dao.CustomerDAOImpl.*(..))",
-                    throwing = "exception")
+            throwing = "exception")
     public void doAfterThrowing(Exception exception){
         log.info("@AfterThrowing ------> " +
                 "\n\t Class: " + exception.getClass().toString() +
