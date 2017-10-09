@@ -1,19 +1,40 @@
 package com.logix.model;
 
-import javax.persistence.*;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Column;
+
 import java.io.Serializable;
 
 /**
- * Hibernate model class using JPA annotations
+ * Hibernate model class using JPA annotations.
  * @see <a href="www.mkyoung.com/hibernate/hibernate-named-query-examples/">MkYoung Hibernate</a>
  * @author bboyingt
  * @version 1.0.0
+ *
+ * Added named queries here, but they can be added anywhere really. One good practice is to place them
+ * in package-info.java since this is outside of the classpath.
  */
 @Entity
 @Table(name="customer")
-public class Customer implements Serializable { //TODO - research if (name="/*..*/") is needed when using the @Column annotation
+@NamedQueries({
+		@NamedQuery(
+				name="Customer.findByName",
+				query="from Customer c where c.custname = :name"),
+		@NamedQuery(
+				name="Customer.findAll",
+				query="from Customer c"),
+		@NamedQuery(
+				name="Customer.findById",
+				query="from Customer c where c.custid = :id")
+})
+public class Customer implements Serializable {
 
-	private static final long servialVersionUID = -7988799579036225137L;
+	private static final long servialVersionUID = 1L;
 
 	@Id
 	@Column

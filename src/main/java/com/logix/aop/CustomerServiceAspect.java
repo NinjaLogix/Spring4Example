@@ -2,13 +2,9 @@ package com.logix.aop;
 
 import java.util.Date;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import org.slf4j.Logger;
@@ -33,44 +29,9 @@ import org.slf4j.LoggerFactory;
  *  @since 1.0.1-AOP
  */
 @Aspect
-public class CustomerAspect {
+public class CustomerServiceAspect {
+    private final Logger log = LoggerFactory.getLogger(CustomerServiceAspect.class);
 
-    private final Logger log = LoggerFactory.getLogger(CustomerAspect.class);
-
-    /**
-     * Executes this concern before the intended pointcut
-     * @Author Branden Boyington
-     * @since 1.0.1-AOP
-     * @param joinPoint
-     */
-    @Before("execution(* com.logix.controller.HibernateController.getAll(..))")
-    public void doBefore(JoinPoint joinPoint){
-        log.info("@Before ------->" +
-                "\n\t Class --> " + joinPoint.getSignature().getClass().toString() +
-                "\n\t Name --> " + joinPoint.getSignature().getName() +
-                "\n\t --> " + new Date());
-    }
-
-    /**
-     * Executes this concern after the intended pointcut
-     * @Author Branden Boyington
-     * @since 1.0.1-AOP
-     * @param joinPoint
-     */
-    @After("execution(* com.logix.service.CustomerServiceImpl.*(..))")
-    public void doAfter(JoinPoint joinPoint){
-        log.info("@Before ------->" +
-                "\n\t --> " + joinPoint.getSignature().getName() +
-                "\n\t --> " + new Date());
-    }
-
-    /**
-     * Executes this concern before and after the intended pointcut
-     * @Author Branden Boyington
-     * @since 1.0.1-AOP
-     * @param precedingJoinPoint
-     * @throws Throwable
-     */
     @Around("execution(* com.logix.service.CustomerService.createCustomer(..))")
     public void doAround(ProceedingJoinPoint precedingJoinPoint) throws Throwable{
         log.info("@Around ---> @Before ------->" +
@@ -86,33 +47,11 @@ public class CustomerAspect {
                 "\n\t --> " + new Date());
     }
 
-    /**
-     * Executes this concern after returning a value from the intended pointcut
-     * @Author Branden Boyington
-     * @since 1.0.1-AOP
-     * @param obj
-     */
     @AfterReturning(pointcut = "execution(* com.logix.service.CustomerServiceImpl.getCustomer(..))",
             returning = "obj")
     public void doAfterReturning(Object obj){
         log.info("@AfterReturning ------> " +
                 "\n\t Customer: " + obj.toString() +
-                "\n\t --> " + new Date());
-    }
-
-    /**
-     * Executes this concern after throwing an exception from the intended pointcut.
-     * @Author Branden Boyington
-     * @since 1.0.1-AOP
-     * @param exception
-     */
-    @AfterThrowing(pointcut = "execution(* com.logix.dao.CustomerDAOImpl.*(..))",
-            throwing = "exception")
-    public void doAfterThrowing(Exception exception){
-        log.info("@AfterThrowing ------> " +
-                "\n\t Class: " + exception.getClass().toString() +
-                "\n\t Cause: " + exception.getCause().toString() +
-                "\n\t Message: " + exception.getMessage() +
                 "\n\t --> " + new Date());
     }
 }

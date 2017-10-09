@@ -17,23 +17,18 @@ import java.util.List;
  * Customer Service Implimentation
  * @author bboyingt
  * @version ${version}
- * @since 1.0.0
+ * @since 1.1.0
  */
 @Service
-@Transactional //TODO - research what this really does
+@Transactional
 public class CustomerServiceImpl implements CustomerService{
-	private final Logger log = LoggerFactory.getLogger(CustomerServiceImpl.class);
-
-	public CustomerServiceImpl(){
-		log.info("CustomerServiceImpl"); //TODO - change this to something like Class.getClass().getName()
-	}
 
 	@Autowired
 	private CustomerDAO custDAO;
 
 	@Override
-	public int createCustomer(Customer cust){
-		return custDAO.createCustomer(cust);
+	public void createCustomer(Customer cust){
+		custDAO.createCustomer(cust);
 	}
 
 	@Override

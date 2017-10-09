@@ -3,9 +3,6 @@ package com.logix.controller;
 import com.logix.model.Customer;
 import com.logix.service.CustomerService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,16 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 /**
- * Not setting a filter on this example, but we will be setting custom http statues on output of controller.
- * Controller setup is mostly the same as the JDBC example.
  *
  * @author bboyingt
  * @version ${version}
- * @since 1.0.0
+ * @since 3.1.0
  */
 @RestController
 public class HibernateController {
-    private final Logger log = LoggerFactory.getLogger(HibernateController.class);
 
     @Autowired
     private CustomerService custService;
@@ -49,33 +43,43 @@ public class HibernateController {
         cust.setCustid(id);
         custService.createCustomer(cust);
 
-        return new ResponseEntity<Void> (headers, HttpStatus.OK);
+        return new ResponseEntity<> (headers, HttpStatus.OK);
     }
 
     /**
      * --------------------------------------------------------------------------------------> READ
+     *
      * @return
      */
     @RequestMapping(value="/listAll", method = RequestMethod.GET)
     public ResponseEntity<List<Customer>> getAll(){
-        log.info("Getting all customers");
         List<Customer> comps = custService.getAllCustomers();
 
-        if (comps == null || comps.isEmpty()){
-            log.warn("No customers were found");
-        }
-
-        return new ResponseEntity<List<Customer>>(comps, HttpStatus.OK);
+        return new ResponseEntity<>(comps, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     @RequestMapping(value="/listAllByName/{name}", method = RequestMethod.GET)
     public ResponseEntity<List<Customer>> getAllByName(@PathVariable("name") String name){
         List<Customer> comps = custService.getAllCustomers(name);
-        if (comps == null || comps.isEmpty()){
-            log.warn("No customer of: " + name + " was found...");
-        }
 
-        return new ResponseEntity<List<Customer>>(comps, HttpStatus.OK);
+        return new ResponseEntity<>(comps, HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value="/listAllById/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Customer> getAllById(@PathVariable("id") int id){
+        Customer cust = custService.getCustomer(id);
+
+        return new ResponseEntity<>(cust, HttpStatus.OK);
     }
 
     /**
@@ -95,7 +99,7 @@ public class HibernateController {
         cust.setCity(city);
         custService.updateCustomer(cust);
 
-        return new ResponseEntity<Void> (headers, HttpStatus.OK);
+        return new ResponseEntity<> (headers, HttpStatus.OK);
     }
 
     /**
@@ -107,7 +111,8 @@ public class HibernateController {
     public ResponseEntity<Void> remove(@PathVariable("id") int id){
         HttpHeaders headers = new HttpHeaders();
         custService.deleteCustomer(id);
-        return new ResponseEntity<Void>(headers, HttpStatus.OK);
+
+        return new ResponseEntity<>(headers, HttpStatus.OK);
     }
 
 }

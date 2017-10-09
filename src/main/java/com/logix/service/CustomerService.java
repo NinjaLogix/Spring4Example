@@ -10,10 +10,10 @@ import com.logix.model.Customer;
  * @version ${version}
  */
 public interface CustomerService {
-	public int createCustomer(Customer cust);
-	public Customer updateCustomer(Customer cust);
-	public void deleteCustomer(int id);
-	public List<Customer> getAllCustomers();
-	public Customer getCustomer(int id);
-	public List<Customer> getAllCustomers(String customerName);
+	void createCustomer(Customer cust);
+	Customer updateCustomer(Customer cust);
+	void deleteCustomer(int id);
+	List<Customer> getAllCustomers();
+	Customer getCustomer(int id);
+	List<Customer> getAllCustomers(String customerName);
 }

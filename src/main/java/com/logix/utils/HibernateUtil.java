@@ -1,25 +1,38 @@
 package com.logix.utils;
 
-import java.io.Serializable;
 import java.util.List;
 
+import com.logix.model.Customer;
+import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
  * @author bboyington
  * @version ${version}
+ * @since 3.1.0
  */
 @Repository
-public class HibernateUtil { //TODO - research why the <T> annotations were used here, maybe this is generics?
+public class HibernateUtil {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    public <T> Serializable create(final T entity){
-        return sessionFactory.getCurrentSession().save(entity);
+    /*
+     * These methods will remain with generics:
+     *      - void create
+     *      - T update
+     *      - void delete
+     * For this example it's a bit overkill, but for a project with multiple hibernate objects
+     * it's very usefull to be able to re-use the same basic crud operation classes on multiple objects.
+     */
+
+    public <T> void create(final T entity){
+        sessionFactory.getCurrentSession().save(entity);
     }
 
     public <T> T update(final T entity){
@@ -31,28 +44,48 @@ public class HibernateUtil { //TODO - research why the <T> annotations were used
         sessionFactory.getCurrentSession().delete(entity);
     }
 
-    public <T> void delete(Serializable id, Class<T> entityClass){
-        T entity = fetchById(id, entityClass);
-        delete(entity);
+    public void delete(int id){
+        Customer entity = fetchById(id);
+        //for (Customer cust:entity){
+            delete(entity);
+        //}
     }
 
     @SuppressWarnings("unchecked")
-    public <T> List<T> fetchAll(Class<T> entityClass){
-        return sessionFactory.getCurrentSession().createQuery(" FROM "+entityClass.getName()).list();
+    public List<Customer> fetchAll(){
+        Session session = sessionFactory.getCurrentSession();
+        Query qry_fetchAll = session.getNamedQuery("Customer.findAll");
+        List<Customer> custList = qry_fetchAll.list();
+        return custList;
     }
 
-    //@SuppressWarnings("rawtypes")
     @SuppressWarnings("unchecked")
-    public <T> List<T> fetchAll(String query){
+    public List<Customer> fetchAll(String query){
         return sessionFactory.getCurrentSession().createSQLQuery(query).list();
-        //Query query = sessionFactory.getCurrentSession()
-        //.getNamedQuery("Customer.fetchByName")
-        //.setParameter("custName", name); //TODO - look into difference between .setString here
-        //return query.list();
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T fetchById(Serializable id, Class<T> entityClass){
-        return (T)sessionFactory.getCurrentSession().get(entityClass, id);
+    public List<Customer> fetchByName(String name){
+        Session session = sessionFactory.getCurrentSession();
+
+        Query qry_byCustName = session.getNamedQuery("Customer.findByName");
+        qry_byCustName.setParameter("name", name);
+        List<Customer> custList = qry_byCustName.list();
+
+        return custList;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Customer fetchById(int id){
+        Session session = sessionFactory.getCurrentSession();
+        try{
+            Query qry_byId = session.getNamedQuery("Customer.findById");
+            qry_byId.setParameter("id", id);
+            Customer custObj = (Customer) qry_byId.uniqueResult();
+
+            return custObj;
+        }catch (NonUniqueObjectException n){
+            return null;
+        }
     }
 }

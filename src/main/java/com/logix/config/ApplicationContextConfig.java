@@ -5,11 +5,15 @@ import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
-import com.logix.aop.CustomerAspect;
+import com.logix.aop.CustomerServiceAspect;
+import com.logix.aop.CustomerDAOAspect;
+import com.logix.aop.ControllerAspect;
+import com.logix.aop.HibernateUtilAspect;
 import org.hibernate.SessionFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
@@ -65,7 +69,7 @@ public class ApplicationContextConfig {
 			dataSource.setMaxPoolSize(Integer.valueOf(env.getProperty("connection.maxPoolSize")));
 			dataSource.setMaxIdleTime(Integer.valueOf(env.getProperty("connection.maxIdleTime")));
 		}catch (PropertyVetoException e) {
-			log.info("PropertyVetoException Caught: ", e.toString()); //TODO - need to change this to something along the lines of e.printstack
+			log.info("PropertyVetoException Caught: ", e.toString());
 		}
 
 		return dataSource;
@@ -91,16 +95,27 @@ public class ApplicationContextConfig {
 		};
 	}
 
-	/**
-	 * Creates a bean named custAspect. Without this there is no proxy connection to the CustomerAspect class
-	 * and none of the concerns will execute.
-	 * @since 1.0.1-AOP
-	 * @return
-	 */
-	@Bean(name = "custAspect")
-	public CustomerAspect getCustomerAspect(){
-		CustomerAspect cAspect = new CustomerAspect();
+	@Bean(name = "Service_Aspect")
+	public CustomerServiceAspect getCustomerAspect(){
+		CustomerServiceAspect serviceAspect = new CustomerServiceAspect();
+		return serviceAspect;
+	}
 
-		return cAspect;
+	@Bean(name = "DAO_Aspect")
+	public CustomerDAOAspect getDAOAspect(){
+		CustomerDAOAspect daoAspect = new CustomerDAOAspect();
+		return daoAspect;
+	}
+
+	@Bean(name = "Controller_Aspect")
+	public ControllerAspect getControllerAspect(){
+		ControllerAspect controllerAspect = new ControllerAspect();
+		return controllerAspect;
+	}
+
+	@Bean(name = "Hibernate_Aspect")
+	public HibernateUtilAspect getHibernateUtilAspect(){
+		HibernateUtilAspect utilAspect = new HibernateUtilAspect();
+		return utilAspect;
 	}
 }

@@ -6,12 +6,15 @@ import com.logix.model.Customer;
 
 /**
  * Created by ninjalogix on 3/12/17.
+ * @author bboyingt
+ * @version ${version}
+ * @since 1.1.0
  */
 public interface CustomerDAO {
-	public int createCustomer(Customer cust);
-	public Customer updateCustomer(Customer cust);
-	public void deleteCustomer(int id);
-	public List<Customer> getAllCustomers();
-	public Customer getCustomer(int id);
-	public List<Customer> getAllCustomers(String customerName);
+	void createCustomer(Customer cust);
+	Customer updateCustomer(Customer cust);
+	void deleteCustomer(int id);
+	List<Customer> getAllCustomers();
+	Customer getCustomer(int id);
+	List<Customer> getAllCustomers(String customerName);
 }
