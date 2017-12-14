@@ -3,6 +3,7 @@ package com.logix.service;
 import java.util.List;
 
 import com.logix.model.Customer;
+import com.logix.dto.CustomerDto;
 
 /**
  * Customer Service interface
@@ -13,7 +14,7 @@ public interface CustomerService {
 	void createCustomer(Customer cust);
 	Customer updateCustomer(Customer cust);
 	void deleteCustomer(int id);
-	List<Customer> getAllCustomers();
-	Customer getCustomer(int id);
-	List<Customer> getAllCustomers(String customerName);
+	List<CustomerDto> getAllCustomers();
+	CustomerDto getCustomer(int id);
+	List<CustomerDto> getAllCustomers(String customerName);
 }

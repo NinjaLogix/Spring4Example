@@ -1,5 +1,6 @@
 package com.logix.controller;
 
+import com.logix.dto.CustomerDto;
 import com.logix.model.Customer;
 import com.logix.service.CustomerService;
 
@@ -52,8 +53,8 @@ public class HibernateController {
      * @return
      */
     @RequestMapping(value="/listAll", method = RequestMethod.GET)
-    public ResponseEntity<List<Customer>> getAll(){
-        List<Customer> comps = custService.getAllCustomers();
+    public ResponseEntity<List<CustomerDto>> getAll(){
+        List<CustomerDto> comps = custService.getAllCustomers();
 
         return new ResponseEntity<>(comps, HttpStatus.OK);
     }
@@ -64,20 +65,21 @@ public class HibernateController {
      * @return
      */
     @RequestMapping(value="/listAllByName/{name}", method = RequestMethod.GET)
-    public ResponseEntity<List<Customer>> getAllByName(@PathVariable("name") String name){
-        List<Customer> comps = custService.getAllCustomers(name);
+    public ResponseEntity<List<CustomerDto>> getAllByName(@PathVariable("name") String name){
+        List<CustomerDto> comps = custService.getAllCustomers(name);
 
         return new ResponseEntity<>(comps, HttpStatus.OK);
     }
 
     /**
      *
+     *
      * @param id
      * @return
      */
     @RequestMapping(value="/listAllById/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Customer> getAllById(@PathVariable("id") int id){
-        Customer cust = custService.getCustomer(id);
+    public ResponseEntity<CustomerDto> getAllById(@PathVariable("id") int id){
+        CustomerDto cust = custService.getCustomer(id);
 
         return new ResponseEntity<>(cust, HttpStatus.OK);
     }

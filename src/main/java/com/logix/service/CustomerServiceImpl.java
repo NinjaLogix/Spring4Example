@@ -2,6 +2,7 @@ package com.logix.service;
 
 import com.logix.dao.CustomerDAO;
 import com.logix.model.Customer;
+import com.logix.dto.CustomerDto;
 import com.logix.service.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import java.lang.StringBuilder;
 
 /**
  * Customer Service Implimentation
@@ -42,17 +46,40 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public List<Customer> getAllCustomers(){
-		return custDAO.getAllCustomers();
+	public List<CustomerDto> getAllCustomers(){
+		List<Customer> custList = custDAO.getAllCustomers();
+		List<CustomerDto> cDto = new ArrayList<>();
+
+		for (Customer c : custList){
+			cDto.add(dtoMapper(c));
+		}
+
+		return cDto;
 	}
 
 	@Override
-	public Customer getCustomer(int id){
-		return custDAO.getCustomer(id);
+	public CustomerDto getCustomer(int id){
+		return dtoMapper(custDAO.getCustomer(id));
 	}
 
 	@Override
-	public List<Customer> getAllCustomers(String custName){
-		return custDAO.getAllCustomers(custName);
+	public List<CustomerDto> getAllCustomers(String custName){
+		List<Customer> custList = custDAO.getAllCustomers(custName);
+		List<CustomerDto> cDto = new ArrayList<>();
+
+		for (Customer c : custList){
+			cDto.add(dtoMapper(c));
+		}
+
+		return cDto;
+	}
+
+	private CustomerDto dtoMapper(Customer tempCust){
+		CustomerDto custdto = new CustomerDto();
+		custdto.setFullName(tempCust.getCustname());
+		custdto.setCity(tempCust.getCity());
+		custdto.setId(tempCust.getCustid());
+
+		return custdto;
 	}
 }
