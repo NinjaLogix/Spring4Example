@@ -19,8 +19,7 @@ import java.io.Serializable;
  * Added named queries here, but they can be added anywhere really. One good practice is to place them
  * in package-info.java since this is outside of the classpath.
  */
-@Entity
-@Table(name="customer")
+
 @NamedQueries({
 		@NamedQuery(
 				name="Customer.findByName",
@@ -32,6 +31,9 @@ import java.io.Serializable;
 				name="Customer.findById",
 				query="from Customer c where c.custid = :id")
 })
+
+@Entity
+@Table(name="customer")
 public class Customer implements Serializable {
 
 	private static final long servialVersionUID = 1L;

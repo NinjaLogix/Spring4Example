@@ -116,5 +116,4 @@ public class HibernateController {
 
         return new ResponseEntity<>(headers, HttpStatus.OK);
     }
-
 }
