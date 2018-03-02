@@ -1,0 +1,9 @@
+com/logix/batch/repository/DocumentMapper.class
+com/logix/batch/writers/DocumentWriter.class
+com/logix/batch/config/ApplicationConfig.class
+com/logix/batch/tasklets/UserBatchTasklet.class
+com/logix/batch/config/BatchConfig.class
+com/logix/batch/processors/UserDocProcessor.class
+com/logix/batch/models/DocumentDTO.class
+com/logix/batch/Application.class
+com/logix/batch/listeners/JobListener.class
