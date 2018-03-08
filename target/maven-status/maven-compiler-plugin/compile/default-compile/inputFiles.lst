@@ -1,9 +1,0 @@
-/Users/NinjaLogix/Dev/Code/Java/SpringBatch/src/main/java/com/logix/batch/config/ApplicationConfig.java
-/Users/NinjaLogix/Dev/Code/Java/SpringBatch/src/main/java/com/logix/batch/listeners/JobListener.java
-/Users/NinjaLogix/Dev/Code/Java/SpringBatch/src/main/java/com/logix/batch/writers/DocumentWriter.java
-/Users/NinjaLogix/Dev/Code/Java/SpringBatch/src/main/java/com/logix/batch/config/BatchConfig.java
-/Users/NinjaLogix/Dev/Code/Java/SpringBatch/src/main/java/com/logix/batch/tasklets/UserBatchTasklet.java
-/Users/NinjaLogix/Dev/Code/Java/SpringBatch/src/main/java/com/logix/batch/processors/UserDocProcessor.java
-/Users/NinjaLogix/Dev/Code/Java/SpringBatch/src/main/java/com/logix/batch/repository/DocumentMapper.java
-/Users/NinjaLogix/Dev/Code/Java/SpringBatch/src/main/java/com/logix/batch/Application.java
-/Users/NinjaLogix/Dev/Code/Java/SpringBatch/src/main/java/com/logix/batch/models/DocumentDTO.java
