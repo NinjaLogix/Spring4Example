@@ -1,0 +1,63 @@
+group 'com.logix'
+version '3.2.2'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility=1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    springVersion="4.1.5.RELEASE"
+    hibernateVersion="4.3.8.Final"
+    mysqlVersion="5.1.10"
+    junitVersion="4.11"
+    servletApiVersion="3.1.0"
+    jspVersion="2.1"
+    jstlVersion="1.2"
+    logbackVersion="1.0.13"
+    slf4jVersion="1.7.5"
+    jacksonVersion="2.7.4"
+    javaVersion="1.8"
+    aspectjVersion="1.7.4"
+}
+
+dependencies {
+    //Spring
+    compile "org.springframework:spring-core:${springVersion}"
+    compile "org.springframework:spring-context:${springVersion}"
+    compile "org.springframework:spring-web:${springVersion}"
+    compile "org.springframework:spring-webmvc:${springVersion}"
+    compile "org.springframework:spring-orm:${springVersion}"
+    compile "org.springframework:spring-test:${springVersion}"
+
+    //Hibernate 4
+    compile "org.hibernate:hibernate-core:${hibernateVersion}"
+    compile "org.hibernate:hibernate-c3p0:${hibernateVersion}"
+
+    //MySQL
+    compile "mysql:mysql-connector-java:${mysqlVersion}"
+
+    //jstl
+    compile "jstl:jstl:${jstlVersion}"
+
+    //Logging
+    compile "org.slf4j:slf4j-api:${slf4jVersion}"
+    compile "ch.qos.logback:logback-classic:${logbackVersion}" //may need to set runtime scope for this
+
+    //Json
+    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}" //had this one in there twice from the pom
+
+    //Servlet
+    compile "javax.servlet:javax.servlet-api:${servletApiVersion}"
+
+    //AspectJ
+    compile "org.aspectj:aspectjrt:${aspectjVersion}"
+    compile "org.aspectj:aspectjtools:${aspectjVersion}"
+
+    testCompile "junit:junit:${junitVersion}" //group: 'junit', name: 'junit', version: '4.11'
+    testCompile "junit:junit:4.12" //group: 'junit', name: 'junit', version: '4.12'
+}

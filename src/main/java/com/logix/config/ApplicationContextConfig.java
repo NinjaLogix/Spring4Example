@@ -36,7 +36,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
-@PropertySources({ @PropertySource("classpath:dataSource/datasource-cfg.properties") })
+@PropertySources({ @PropertySource("classpath:dataSource/application.properties") })
 @ComponentScan({ "com.logix.*" })
 public class ApplicationContextConfig {
 	private final Logger log = LoggerFactory.getLogger(ApplicationContextConfig.class);
