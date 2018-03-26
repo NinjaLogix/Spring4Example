@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class ControllerAspect {
     private final Logger log = LoggerFactory.getLogger(ControllerAspect.class);
 
-    @Before("execution(* com.logix.controller.HibernateController.createNewCust(..))")
+    @Before("execution(* com.logix.controller.ServiceController.createNewCust(..))")
     public void before_createNewCust(JoinPoint joinpoint){
         log.info("@Before ------->" +
                 "\n\t --> " + joinpoint.getSignature().getName() +

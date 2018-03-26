@@ -1,15 +1,11 @@
 package com.logix.service;
 
-import com.logix.dao.CustomerDAO;
+import com.logix.data.CustomerDAO;
 import com.logix.model.Customer;
-import com.logix.service.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 

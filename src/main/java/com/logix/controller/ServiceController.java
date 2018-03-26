@@ -2,6 +2,7 @@ package com.logix.controller;
 
 import com.logix.model.Customer;
 import com.logix.service.CustomerService;
+import com.logix.data.UserDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -21,7 +25,7 @@ import java.util.List;
  * @since 3.1.0
  */
 @RestController
-public class HibernateController {
+public class ServiceController {
 
     @Autowired
     private CustomerService custService;
@@ -115,4 +119,16 @@ public class HibernateController {
         return new ResponseEntity<>(headers, HttpStatus.OK);
     }
 
+    //--------------------------------------------------------------------------------------->Spring Security End Points
+    @RequestMapping(value="/register", method=RequestMethod.POST)
+    public ResponseEntity<Void> registerUser(@RequestBody @Valid UserDto userDto, UriComponentsBuilder uriComponentsBuilder){
+        HttpHeaders headers = new HttpHeaders();
+
+        //Attempt to validate userDto to kick off valiation process
+            //if failure for any reason return HttpStatus.CONFLICT
+
+        //TODO -> redirect to landing page
+        headers.setLocation(uriComponentsBuilder.path("/siteLandingPage/{userId}").buildAndExpand(userDto.getFirstName()).toUri());
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
 }

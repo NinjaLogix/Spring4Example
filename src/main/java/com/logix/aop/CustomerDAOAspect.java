@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class CustomerDAOAspect {
     private final Logger log = LoggerFactory.getLogger(CustomerDAOAspect.class);
 
-    @After("execution(* com.logix.dao.CustomerDAOImpl.createCustomer(..))")
+    @After("execution(* com.logix.data.CustomerDAOImpl.createCustomer(..))")
     public void after_create(JoinPoint joinPoint){
         log.info("@After ------->" +
                 "\n\t --> " + joinPoint.getSignature().getName() +

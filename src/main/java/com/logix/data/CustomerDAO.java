@@ -1,4 +1,4 @@
-package com.logix.dao;
+package com.logix.data;
 
 import java.util.List;
 

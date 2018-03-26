@@ -8,7 +8,7 @@ import java.util.Properties;
 import com.logix.aop.CustomerServiceAspect;
 import com.logix.aop.CustomerDAOAspect;
 import com.logix.aop.ControllerAspect;
-import com.logix.aop.HibernateUtilAspect;
+import com.logix.aop.DataUtilAspect;
 import org.hibernate.SessionFactory;
 
 import org.slf4j.Logger;
@@ -114,8 +114,8 @@ public class ApplicationContextConfig {
 	}
 
 	@Bean(name = "Hibernate_Aspect")
-	public HibernateUtilAspect getHibernateUtilAspect(){
-		HibernateUtilAspect utilAspect = new HibernateUtilAspect();
+	public DataUtilAspect getHibernateUtilAspect(){
+		DataUtilAspect utilAspect = new DataUtilAspect();
 		return utilAspect;
 	}
 }

@@ -15,14 +15,15 @@ ext {
     hibernateVersion="4.3.8.Final"
     mysqlVersion="5.1.10"
     junitVersion="4.11"
+    junitAlt="4.12"
     servletApiVersion="3.1.0"
     jspVersion="2.1"
     jstlVersion="1.2"
     logbackVersion="1.0.13"
     slf4jVersion="1.7.5"
     jacksonVersion="2.7.4"
-    javaVersion="1.8"
     aspectjVersion="1.7.4"
+    validatorVersion="6.0.8.Final"
 }
 
 dependencies {
@@ -37,6 +38,7 @@ dependencies {
     //Hibernate 4
     compile "org.hibernate:hibernate-core:${hibernateVersion}"
     compile "org.hibernate:hibernate-c3p0:${hibernateVersion}"
+    compile "org.hibernate:hibernate-validator:${validatorVersion}"
 
     //MySQL
     compile "mysql:mysql-connector-java:${mysqlVersion}"
@@ -49,7 +51,7 @@ dependencies {
     compile "ch.qos.logback:logback-classic:${logbackVersion}" //may need to set runtime scope for this
 
     //Json
-    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}" //had this one in there twice from the pom
+    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 
     //Servlet
     compile "javax.servlet:javax.servlet-api:${servletApiVersion}"
@@ -58,6 +60,6 @@ dependencies {
     compile "org.aspectj:aspectjrt:${aspectjVersion}"
     compile "org.aspectj:aspectjtools:${aspectjVersion}"
 
-    testCompile "junit:junit:${junitVersion}" //group: 'junit', name: 'junit', version: '4.11'
-    testCompile "junit:junit:4.12" //group: 'junit', name: 'junit', version: '4.12'
+    testCompile "junit:junit:${junitVersion}"
+    testCompile "junit:junit:${junitAlt}"
 }

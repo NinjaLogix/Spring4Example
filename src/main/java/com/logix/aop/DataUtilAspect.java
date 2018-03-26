@@ -9,10 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Aspect
-public class HibernateUtilAspect {
-    private final Logger log = LoggerFactory.getLogger(HibernateUtilAspect.class);
+public class DataUtilAspect {
+    private final Logger log = LoggerFactory.getLogger(DataUtilAspect.class);
 
-    @AfterThrowing(pointcut = "execution(* com.logix.utils.HibernateUtil.fetchById(..))",
+    @AfterThrowing(pointcut = "execution(* com.logix.utils.DataUtil.fetchById(..))",
             throwing = "exception")
     public void afterThrowing_getAllByName(Exception exception){
         log.info("@AfterThrowing ------> " +

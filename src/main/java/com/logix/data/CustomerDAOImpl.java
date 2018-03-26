@@ -1,10 +1,8 @@
-package com.logix.dao;
+package com.logix.data;
 
 import com.logix.model.Customer;
-import com.logix.utils.HibernateUtil;
+import com.logix.utils.DataUtil;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +17,7 @@ import java.util.List;
 public class CustomerDAOImpl implements CustomerDAO {
 
 	@Autowired
-	private HibernateUtil hiberUtil;
+	private DataUtil hiberUtil;
 
 	@Override
 	public void createCustomer(Customer cust){
