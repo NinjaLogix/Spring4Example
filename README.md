@@ -1,6 +1,22 @@
-# 5.3.0 - Spring Security
+# 5.3.0 - Spring Security (Work in Progress)
 (Please view previous branches for other topics)
 Note: this will not be using Spring boot as of now. I wanted to focus on each topic with as mininal auto config as possible
+
+## Prereqs that need to be installed
+- Java 1.8
+- Gradle 4.6 ( Needed for Gretty plugin)
+- MySQL
+- Preferred IDE, I use intellij personally
+
+## Usage
+Testing
+```text
+gradle appRun
+```
+Building
+```text
+gradle clean build
+```
 
 ## What's New
 - Created separate repo for client side for this service. Wanted to use another repo just to keep things separate because I want to expand on React and Redux.
