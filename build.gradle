@@ -36,41 +36,41 @@ ext {
 
 dependencies {
     //Spring
-    compile "org.springframework:spring-core:${springVersion}"
-    compile "org.springframework:spring-context:${springVersion}"
-    compile "org.springframework:spring-web:${springVersion}"
-    compile "org.springframework:spring-webmvc:${springVersion}"
-    compile "org.springframework:spring-orm:${springVersion}"
-    compile "org.springframework:spring-test:${springVersion}"
+    compile "org.springframework:spring-core:${springVersion}" //core of spring framework
+    compile "org.springframework:spring-context:${springVersion}" //IoC container, responsible for insstantiating, configuring, and assembling beans from xml config or Java annotations
+    compile "org.springframework:spring-web:${springVersion}" //core http integration
+    compile "org.springframework:spring-webmvc:${springVersion}" //depends on spring-web, an implementation of Spring MVC
+    compile "org.springframework:spring-orm:${springVersion}" //API for integrating with other orm frameworks such as hibernate
+    compile "org.springframework:spring-test:${springVersion}" //TestContext framework
 
     //Spring-Data
-    compile "org.springframework.data:spring-data-jpa:${springDataVersion}"
+    compile "org.springframework.data:spring-data-jpa:${springDataVersion}" //API for reducing the boilerplate implementation for the data access layer
 
     //Hibernate
-    compile "org.hibernate:hibernate-validator:${validatorVersion}"
-    compile "org.hibernate:hibernate-entitymanager:${hibernateManagerVersion}"
+    compile "org.hibernate:hibernate-validator:${validatorVersion}" //bean validation API
+    compile "org.hibernate:hibernate-entitymanager:${hibernateManagerVersion}" //API used to access a database. Used to create and remove persistent entity instances, to find entities by their primary key, and to query over all entities
 
     //MySQL
-    compile "mysql:mysql-connector-java:${mysqlVersion}"
+    compile "mysql:mysql-connector-java:${mysqlVersion}" //MySQL connector for Java
 
     //jstl
-    compile "jstl:jstl:${jstlVersion}"
+    compile "jstl:jstl:${jstlVersion}" //JavaServer Pages Standard Tag Library, provides an effective way to embed logic within a JSP page without using embedded Java directly
 
     //Logging
-    compile "org.slf4j:slf4j-api:${slf4jVersion}"
-    compile "ch.qos.logback:logback-classic:${logbackVersion}"
+    compile "org.slf4j:slf4j-api:${slf4jVersion}" //API for serves as a simple facade or abstraction for various logging frameworks
+    compile "ch.qos.logback:logback-classic:${logbackVersion}" //logging framework for Java
 
     //Json
-    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}" //This project contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor
 
     //Servlet
-    compile "javax.servlet:javax.servlet-api:${servletApiVersion}"
+    compile "javax.servlet:javax.servlet-api:${servletApiVersion}" //servlet implementation for Tomcat
 
     //AspectJ
-    compile "org.aspectj:aspectjrt:${aspectjVersion}"
-    compile "org.aspectj:aspectjtools:${aspectjVersion}"
+    compile "org.aspectj:aspectjrt:${aspectjVersion}" //implementation for AOP
+    compile "org.aspectj:aspectjtools:${aspectjVersion}" //API for AOP proxy
 
     //Testing
-    testCompile "junit:junit:${junitVersion}"
-    testCompile "junit:junit:${junitAlt}"
+    testCompile "junit:junit:${junitVersion}" //API for testing Java classes
+    testCompile "junit:junit:${junitAlt}" //API for testing Java Classes
 }
