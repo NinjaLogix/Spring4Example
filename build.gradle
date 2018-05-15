@@ -1,8 +1,10 @@
-group 'com.logix'
-version '3.2.2'
-
 apply plugin: 'java'
 apply plugin: 'war'
+apply plugin: 'idea'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+
+group 'com.logix'
+version '3.2.2'
 
 sourceCompatibility=1.8
 
@@ -10,9 +12,13 @@ repositories {
     mavenCentral()
 }
 
+gretty{
+    contextPath = '/regimeTest'
+}
+
 ext {
     springVersion="4.1.5.RELEASE"
-    hibernateVersion="4.3.8.Final"
+    hibernateVersion="5.2.10.Final"
     mysqlVersion="5.1.10"
     junitVersion="4.11"
     junitAlt="4.12"
@@ -24,6 +30,8 @@ ext {
     jacksonVersion="2.7.4"
     aspectjVersion="1.7.4"
     validatorVersion="6.0.8.Final"
+    springDataVersion="1.3.4.RELEASE"
+    hibernateManagerVersion="4.2.5.Final"
 }
 
 dependencies {
@@ -35,10 +43,12 @@ dependencies {
     compile "org.springframework:spring-orm:${springVersion}"
     compile "org.springframework:spring-test:${springVersion}"
 
-    //Hibernate 4
-    compile "org.hibernate:hibernate-core:${hibernateVersion}"
-    compile "org.hibernate:hibernate-c3p0:${hibernateVersion}"
+    //Spring-Data
+    compile "org.springframework.data:spring-data-jpa:${springDataVersion}"
+
+    //Hibernate
     compile "org.hibernate:hibernate-validator:${validatorVersion}"
+    compile "org.hibernate:hibernate-entitymanager:${hibernateManagerVersion}"
 
     //MySQL
     compile "mysql:mysql-connector-java:${mysqlVersion}"
@@ -48,7 +58,7 @@ dependencies {
 
     //Logging
     compile "org.slf4j:slf4j-api:${slf4jVersion}"
-    compile "ch.qos.logback:logback-classic:${logbackVersion}" //may need to set runtime scope for this
+    compile "ch.qos.logback:logback-classic:${logbackVersion}"
 
     //Json
     compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
@@ -60,6 +70,7 @@ dependencies {
     compile "org.aspectj:aspectjrt:${aspectjVersion}"
     compile "org.aspectj:aspectjtools:${aspectjVersion}"
 
+    //Testing
     testCompile "junit:junit:${junitVersion}"
     testCompile "junit:junit:${junitAlt}"
 }

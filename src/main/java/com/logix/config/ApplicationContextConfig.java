@@ -1,90 +1,80 @@
 package com.logix.config;
 
-import javax.sql.DataSource;
-
 import java.beans.PropertyVetoException;
 import java.util.Properties;
-
-import com.logix.aop.CustomerServiceAspect;
-import com.logix.aop.CustomerDAOAspect;
-import com.logix.aop.ControllerAspect;
-import com.logix.aop.DataUtilAspect;
-import org.hibernate.SessionFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.context.annotation.PropertySources;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.ComponentScan;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.hibernate.ejb.HibernatePersistence;
+
+import javax.sql.DataSource;
 
 /**
- * Hibernate java style config setup. Followed this article
- * @see <a href="http://www.baeldung.com/hibernate-4-spring">baeldung.com</a>
- * Main Hibernate article followed
- * @see <a href="https://myjourneyonjava.blogspot.com/2015/09/spring-4-mvc-hibernate-4-mysql-5-maven.html">myjourneyonjava.blogspot.com</a>
- *
  * @author bboyingt
  * @version ${version}
  * @since 1.0.0
  */
 @Configuration
 @EnableTransactionManagement
+@EnableJpaRepositories("com.logix.persistence.dao")
 @EnableAspectJAutoProxy
-@PropertySources({ @PropertySource("classpath:dataSource/application.properties") })
-@ComponentScan({ "com.logix.*" })
+@PropertySources({ @PropertySource("classpath:application.properties")})
 public class ApplicationContextConfig {
-	private final Logger log = LoggerFactory.getLogger(ApplicationContextConfig.class);
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private Environment env;
 
 	@Bean
-	public LocalSessionFactoryBean sessionFactory(){
-		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-		sessionFactory.setDataSource(restDataSource());
-		sessionFactory.setPackagesToScan(new String[]{ "com.logix.model"});
-		sessionFactory.setHibernateProperties(hibernateProperties());
-		sessionFactory.setPackagesToScan("com.logix.model");
-		//sessionFactory.setMappingResources("com.logix.model.Customer");
+	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(){
+		LocalContainerEntityManagerFactoryBean lemfb = new LocalContainerEntityManagerFactoryBean();
+		lemfb.setDataSource(dataSource());
+		lemfb.setPersistenceProviderClass(HibernatePersistence.class);
+		lemfb.setPackagesToScan("com.logix.model");
+		lemfb.setJpaProperties(hibernateProperties());
 
-		return sessionFactory;
+		return lemfb;
+	}
+
+	/**
+	 * Switched from using C3P0 for connection pooling here just to simplify things. Normally you would want
+	 * a connection pool though to manage a large number of connections.
+	 * @return
+	 */
+	@Bean
+	public DataSource dataSource() {
+		DriverManagerDataSource ds = new DriverManagerDataSource();
+		ds.setUrl(env.getProperty("dataSource.url"));
+		ds.setUsername(env.getProperty("dataSource.username"));
+		ds.setPassword(env.getProperty("dataSource.password"));
+		ds.setDriverClassName(env.getProperty("dataSource.database-driver"));
+
+		return ds;
 	}
 
 	@Bean
-	public DataSource restDataSource() {
-		ComboPooledDataSource dataSource = new ComboPooledDataSource();
-		try{
-			dataSource.setDriverClass(env.getProperty("dataSource.database-driver"));
-			dataSource.setJdbcUrl(env.getProperty("dataSource.url"));
-			dataSource.setUser(env.getProperty("dataSource.username"));
-			dataSource.setPassword(env.getProperty("dataSource.password"));
-			dataSource.setAcquireIncrement(Integer.valueOf(env.getProperty("connection.acquireIncrement")));
-			dataSource.setMinPoolSize(Integer.valueOf(env.getProperty("connection.minPoolSize")));
-			dataSource.setMaxPoolSize(Integer.valueOf(env.getProperty("connection.maxPoolSize")));
-			dataSource.setMaxIdleTime(Integer.valueOf(env.getProperty("connection.maxIdleTime")));
-		}catch (PropertyVetoException e) {
-			log.info("PropertyVetoException Caught: ", e.toString());
-		}
-
-		return dataSource;
+	JpaTransactionManager transactionManager(){
+		JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
+		jpaTransactionManager.setEntityManagerFactory(entityManagerFactoryBean().getObject());
+		return jpaTransactionManager;
 	}
 
-	@Bean
-	@Autowired
-	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
-		HibernateTransactionManager txManager = new HibernateTransactionManager();
-		txManager.setSessionFactory(sessionFactory);
-
-		return txManager;
-	}
-
-	Properties hibernateProperties(){
+	private Properties hibernateProperties(){
 		return new Properties(){
 			{
 				setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
@@ -93,29 +83,5 @@ public class ApplicationContextConfig {
 				setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
 			}
 		};
-	}
-
-	@Bean(name = "Service_Aspect")
-	public CustomerServiceAspect getCustomerAspect(){
-		CustomerServiceAspect serviceAspect = new CustomerServiceAspect();
-		return serviceAspect;
-	}
-
-	@Bean(name = "DAO_Aspect")
-	public CustomerDAOAspect getDAOAspect(){
-		CustomerDAOAspect daoAspect = new CustomerDAOAspect();
-		return daoAspect;
-	}
-
-	@Bean(name = "Controller_Aspect")
-	public ControllerAspect getControllerAspect(){
-		ControllerAspect controllerAspect = new ControllerAspect();
-		return controllerAspect;
-	}
-
-	@Bean(name = "Hibernate_Aspect")
-	public DataUtilAspect getHibernateUtilAspect(){
-		DataUtilAspect utilAspect = new DataUtilAspect();
-		return utilAspect;
 	}
 }

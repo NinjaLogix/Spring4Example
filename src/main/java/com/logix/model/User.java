@@ -29,6 +29,18 @@ public class User implements Serializable{
     @Column(name="email")
     private String email;
 
+    @Column(name="fname")
+    private String fname;
+
+    @Column(name="lname")
+    private String lname;
+
+    @Column(name="pass")
+    private String pass;
+
+    @Column(name="cpass")
+    private String cpass;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="usr_sur")
     private Set<UserRole> roles;
@@ -41,6 +53,18 @@ public class User implements Serializable{
 
     public void setEmail(String email) { this.email = email; }
     public String getEmail() { return email; }
+
+    public void setFname(String fname) { this.fname = fname; }
+    public String getFname() { return fname; }
+
+    public void setLname(String lname) { this.lname = lname; }
+    public String getLname() { return lname; }
+
+    public void setPass(String pass) { this.pass = pass; }
+    public String getPass() { return pass; }
+
+    public void setCpass(String cpass) { this.cpass = cpass; }
+    public String getCpass() { return cpass; }
 
     public void setRoles(Set<UserRole> roles) { this.roles = roles; }
     public Set<UserRole> getRoles() { return roles; }

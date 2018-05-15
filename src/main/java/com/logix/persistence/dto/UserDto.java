@@ -1,10 +1,12 @@
-package com.logix.data;
+package com.logix.persistence.dto;
 
 import com.logix.validation.ValidEmail;
 import com.logix.validation.ValidPassword;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Set;
 
 @ValidPassword
 public class UserDto {
@@ -29,6 +31,8 @@ public class UserDto {
     @NotEmpty
     private String cpass;
 
+    //private List<String> roles;
+
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
 
@@ -44,10 +48,13 @@ public class UserDto {
     public String getCpass() { return cpass; }
     public void setCpass(String cpass) { this.cpass = cpass; }
 
+    //public Set<String> getRoles(){ return roles; }
+    //public void setRoles(Set<String> roles) { this.roles = roles; }
+
     @Override
     public String toString(){
-        StringBuffer stringBuffer = new StringBuffer();
-        return stringBuffer.append("UserDto: FirstName-> ").append(getFirstName())
+        StringBuffer sb = new StringBuffer();
+        return sb.append("UserDto: FirstName-> ").append(getFirstName())
                 .append("LastName-> ").append(getLastName())
                 .append("Email-> ").append(getEmail())
                 .append("Pass not included in this method...")

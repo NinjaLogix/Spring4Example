@@ -1,6 +1,6 @@
 package com.logix.validation;
 
-import com.logix.data.UserDto;
+import com.logix.persistence.dto.UserDto;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
