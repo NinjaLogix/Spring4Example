@@ -17,15 +17,15 @@ Building
 ```text
 gradle clean build
 ```
-
-## What's New
-- Created separate repo for client side for this service. Wanted to use another repo just to keep things separate because I want to expand on React and Redux.
-- Moved the build system to Gradle because it is becoming more popular and accepting more languages as it progresses. Took the time to get familiar with it so that I can teach others and teach myself.
-- Started using Spring Data to eliminate some DAO implementation with Hibernate
   
 ## Updates to the project
 - Registration Process:
     - Register a new user at endpoint: /register
+- Spring Security
+- Gretty Plugin for gradle
+- Gradle 4.6 as the build system
+    I created a separate client side repo for the front end. I wanted to explore React / Redux and get better with JavaScript I'm working on building my current development model based around a good Java webservice. So check out my [other repo](https://github.com/NinjaLogix/React-Redux-Example)
+- Finally gave a more descriptive readme doc
     
 ## Articles relevant to this branch:
 [gretty plugin](http://akhikhl.github.io/gretty-doc/Getting-started.html)<br/>
