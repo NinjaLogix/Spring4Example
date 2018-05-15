@@ -1,6 +1,7 @@
 # 5.3.0 - Spring Security (Work in Progress)
 (Please view previous branches for other topics)
 Note: this will not be using Spring boot as of now. I wanted to focus on each topic with as mininal auto config as possible
+Note: The version number here is behind on purpose. I jumped ahead a bit to learn Spring Batch so the version number had to reflect the changes.
 
 ## Prereqs that need to be installed
 - Java 1.8
