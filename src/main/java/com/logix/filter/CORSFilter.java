@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public class CORSFilter extends OncePerRequestFilter{
 
-	private final Logger LOG = LoggerFactory.getLogger(CORSFilter.class);
+	private final Logger LOG = LoggerFactory.getLogger(getClass());
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException, IOException {

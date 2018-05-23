@@ -17,7 +17,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public User handleNewAccount(UserDto userDto){
         User user = mapToUser(userDto);
-        dao.save(user);
+        dao.create(user);
         return user;
     }
 

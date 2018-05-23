@@ -17,7 +17,7 @@ gretty{
 }
 
 ext {
-    springVersion="4.1.5.RELEASE"
+    springVersion="4.3.0.RELEASE" //changed from 4.1.5.RELEASE
     hibernateVersion="5.2.10.Final"
     mysqlVersion="5.1.10"
     junitVersion="4.11"
@@ -40,10 +40,7 @@ dependencies {
     compile "org.springframework:spring-context:${springVersion}" //IoC container, responsible for insstantiating, configuring, and assembling beans from xml config or Java annotations
     compile "org.springframework:spring-web:${springVersion}" //core http integration
     compile "org.springframework:spring-webmvc:${springVersion}" //depends on spring-web, an implementation of Spring MVC
-    compile "org.springframework:spring-orm:${springVersion}" //API for integrating with other orm frameworks such as hibernate
     compile "org.springframework:spring-test:${springVersion}" //TestContext framework
-
-    //Spring-Data
     compile "org.springframework.data:spring-data-jpa:${springDataVersion}" //API for reducing the boilerplate implementation for the data access layer
 
     //Hibernate

@@ -1,10 +1,12 @@
 package com.logix.persistence.dao;
 
 import com.logix.model.User;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
+import java.util.List;
 
-@Component
-public interface UserDao extends CrudRepository<User, Long>{
-    UserDao findByEmail(String email);
+public interface UserDao {
+    User create(User user);
+    User delete(int id); //throws UserNotFoundException;
+    List<User> findAll();
+    User update(User user); //thows UserNotFoundException;
+    User findById(int id);
 }

@@ -3,7 +3,11 @@ CREATE TABLE user
   id    INT AUTO_INCREMENT
     PRIMARY KEY,
   email VARCHAR(40) NULL,
-  uname VARCHAR(10) NULL
+  uname VARCHAR(10) NULL,
+  fname VARCHAR(40) null,
+  lname VARCHAR(40) null,
+  pass VARCHAR(40) null,
+  cpass VARCHAR(40) null
 )
   ENGINE = InnoDB;
 

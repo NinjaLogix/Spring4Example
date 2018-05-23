@@ -3,11 +3,15 @@
 Note: this will not be using Spring boot as of now. I wanted to focus on each topic with as mininal auto config as possible
 Note: The version number here is behind on purpose. I jumped ahead a bit to learn Spring Batch so the version number had to reflect the changes.
 
-## Prereqs that need to be installed
+## Prereqs for this build
 - Java 1.8
 - Gradle 4.6 ( Needed for Gretty plugin)
 - MySQL
-- Preferred IDE, I use intellij personally
+
+## Tools for this project
+- Intellij Idea
+- DataGrip
+- 
 
 ## Usage
 Testing
@@ -19,10 +23,11 @@ Building
 gradle clean build
 ```
   
-## Updates to the project
+## Updates to the project from this repo
 - Registration Process:
     - Register a new user at endpoint: /register
 - Spring Security
+- Spring Data
 - Gretty Plugin for gradle
 - Gradle 4.6 as the build system
     I created a separate client side repo for the front end. I wanted to explore React / Redux and get better with JavaScript I'm working on building my current development model based around a good Java webservice. So check out my [other repo](https://github.com/NinjaLogix/React-Redux-Example)

@@ -1,14 +1,14 @@
 package com.logix.model;
 
+import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Id;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Column;
-import javax.persistence.OneToMany;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -41,9 +41,9 @@ public class User implements Serializable{
     @Column(name="cpass")
     private String cpass;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="usr_sur")
-    private Set<UserRole> roles;
+    //@ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name="usr_sur")
+    //private Set<UserRole> roles;
 
     public void setId(int id) { this.id = id; }
     public int getId() { return id; }
@@ -66,6 +66,6 @@ public class User implements Serializable{
     public void setCpass(String cpass) { this.cpass = cpass; }
     public String getCpass() { return cpass; }
 
-    public void setRoles(Set<UserRole> roles) { this.roles = roles; }
-    public Set<UserRole> getRoles() { return roles; }
+    //public void setRoles(Set<UserRole> roles) { this.roles = roles; }
+    //public Set<UserRole> getRoles() { return roles; }
 }
