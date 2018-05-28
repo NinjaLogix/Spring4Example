@@ -1,5 +1,6 @@
 package com.logix.persistence.dao;
 
+import com.logix.exception.UserNotFoundException;
 import com.logix.model.User;
 import com.logix.persistence.repository.UserRepository;
 import org.springframework.stereotype.Repository;
@@ -27,13 +28,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional//(rollbackFor = UserNotFoundException.class)
+    @Transactional(rollbackFor = UserNotFoundException.class)
     public User delete(int id){
         User deletedUser = userRepository.findOne(id);
 
-        //if (deletedUser == null){
-            //throw UserNotFoundException
-        //}
+        if (deletedUser == null){
+            throw new UserNotFoundException();
+        }
         userRepository.delete(deletedUser);
         return deletedUser;
     }
@@ -45,16 +46,20 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = UserNotFoundException.class)
     public User update(User user){
         User updatedUser = userRepository.findOne(user.getId());
 
-        //if(updatedUser == null){
-            //throw UserNotFoundException
-        //}
+        if(updatedUser == null){
+            throw new UserNotFoundException();
+        }
 
         updatedUser.setFname(user.getFname());
         updatedUser.setLname(user.getLname());
         return updatedUser;
     }
+
+    @Override
+    @Transactional
+    public User findByEmail(String email){ return userRepository.findByEmail(email); }
 }

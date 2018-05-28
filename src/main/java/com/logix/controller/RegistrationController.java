@@ -28,14 +28,30 @@ public class RegistrationController {
     private UserDao userDao;
 
     //--------------------------------------------------------------------------------------------->Registering New User
+
+    /**
+     * Test this endpoint with a JSON request formatted for the UserDTO object. Example is as follows:
+     * {
+     * 	"firstName":"Test",
+     * 	"lastName":"User",
+     * 	"email":"some.thing@user.mail.com",
+     * 	"pass":"pass",
+     * 	"cpass":"pass"
+     * }
+     *
+     * Email and password will be validated before any data actions.
+     * TODO - need to send back any errors in the ResponseBody
+     * @param userDto
+     * @return
+     */
     @RequestMapping(value="/register", method= RequestMethod.POST)
     public ResponseEntity registerUser(@RequestBody @Valid UserDto userDto){
-        registrationService.handleNewAccount(userDto);
+        registrationService.createAccount(userDto);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     //--------------------------------------------------------------------------------------------------->Test Endpoints
-    @RequestMapping(value="/cr", method=RequestMethod.POST)
+    @RequestMapping(value="/create", method=RequestMethod.POST)
     public ResponseEntity testUser(@RequestBody User user){
         log.info(user.toString());
         userDao.create(user);

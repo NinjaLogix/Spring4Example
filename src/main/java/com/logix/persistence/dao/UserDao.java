@@ -9,4 +9,5 @@ public interface UserDao {
     List<User> findAll();
     User update(User user); //thows UserNotFoundException;
     User findById(int id);
+    User findByEmail(String email);
 }

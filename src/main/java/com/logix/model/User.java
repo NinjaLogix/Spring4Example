@@ -1,20 +1,22 @@
 package com.logix.model;
 
 import javax.persistence.Id;
-import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.NamedQuery;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
 
 import java.io.Serializable;
 import java.util.Set;
 
-@Entity(name="ForeignKeyAssoEntity")
+@Entity
 @Table(name="user", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
+@NamedQuery(
+    name="User.findByEmail",
+    query="select u from User u where u.email = :email"
+)
 public class User implements Serializable{
     public static final long serialVersion = 1L;
 

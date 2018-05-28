@@ -11,7 +11,7 @@ Note: The version number here is behind on purpose. I jumped ahead a bit to lear
 ## Tools for this project
 - Intellij Idea
 - DataGrip
-- 
+- PostMan for API calls
 
 ## Usage
 Testing
