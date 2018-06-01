@@ -18,6 +18,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     private UserDao dao;
 
+    @Autowired
+    private UserDetailsService details;
+
     @Override
     public User createAccount(UserDto userDto){
         User createdUser = null;
@@ -25,6 +28,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             createdUser = handleNewAccount(userDto);
         } catch ( EmailExistsException ex ){
             ex.printStackTrace();
+            return null;
         }
         return createdUser;
     }
@@ -37,6 +41,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         //TODO - user registration is not full here
         User registeredUser = mapToUser(userDto);
         dao.create(registeredUser);
+
+        //TODO - handle user details here? Still following article
 
         return registeredUser;
     }

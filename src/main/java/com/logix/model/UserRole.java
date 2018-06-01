@@ -1,27 +1,30 @@
 package com.logix.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
 
-//@Entity(name="ForeignKeyAssoAccountEntity")
-//@Table(name="user_roles", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
+@Entity
+@Table(name="user_roles", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
 public class UserRole implements Serializable{
     public static final long serialVersion = 1L;
 
-    //@Id
-    //@GeneratedValue
-    //@Column(name="id", unique = true, nullable = false)
-    private int id;
+    @Id
+    @GeneratedValue(generator="uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name="id", unique = true, nullable = false)
+    private String id;
 
-    //@Column(name="role_name")
+    @Column(name="role_name")
     private String role;
 
-    //@OneToMany
+    @ManyToOne
     private User user;
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }

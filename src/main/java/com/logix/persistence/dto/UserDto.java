@@ -5,11 +5,12 @@ import com.logix.validation.ValidPassword;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 import java.util.List;
-import java.util.Set;
 
 @ValidPassword
 public class UserDto {
+    //-----------------------------> User
     @NotNull
     @NotEmpty
     private String firstName;
@@ -31,7 +32,17 @@ public class UserDto {
     @NotEmpty
     private String cpass;
 
-    //private List<String> roles;
+    //----------------------------->Roles
+    private List<String> roles;
+
+    //----------------------------->Details
+    private boolean enabled;
+
+    private boolean acctNotExpired;
+
+    private boolean credsNotExpired;
+
+    private boolean acctNotLocked;
 
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
@@ -48,8 +59,20 @@ public class UserDto {
     public String getCpass() { return cpass; }
     public void setCpass(String cpass) { this.cpass = cpass; }
 
-    //public Set<String> getRoles(){ return roles; }
-    //public void setRoles(Set<String> roles) { this.roles = roles; }
+    public List<String> getRoles(){ return roles; }
+    public void setRoles(List<String> roles) { this.roles = roles; }
+
+    public boolean getEnabled(){ return enabled; }
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
+
+    public boolean getAcctNotExpired(){ return acctNotExpired; }
+    public void setAcctNotExpired(boolean acctNotExpired){ this.acctNotExpired = acctNotExpired; }
+
+    public boolean getCredsNotExpired(){ return credsNotExpired; }
+    public void setCredsNotExpired(boolean credsNotExpired){ this.credsNotExpired=credsNotExpired; }
+
+    public boolean getAcctNotLocked(){ return acctNotLocked; }
+    public void setAcctNotLocked(boolean acctNotLocked){ this.acctNotLocked=acctNotLocked; }
 
     @Override
     public String toString(){

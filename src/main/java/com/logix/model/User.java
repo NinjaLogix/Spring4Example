@@ -1,8 +1,14 @@
 package com.logix.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.NamedQuery;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.UniqueConstraint;
@@ -13,22 +19,19 @@ import java.util.Set;
 
 @Entity
 @Table(name="user", uniqueConstraints = {@UniqueConstraint(columnNames = "id")})
-@NamedQuery(
-    name="User.findByEmail",
-    query="select u from User u where u.email = :email"
-)
 public class User implements Serializable{
     public static final long serialVersion = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator="uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name="id", unique = true, nullable = false)
-    private int id;
+    private String id;
 
     @Column(name="uname")
     private String userName;
 
-    @Column(name="email")
+    @Column(name="email", unique=true, length=40)
     private String email;
 
     @Column(name="fname")
@@ -43,12 +46,15 @@ public class User implements Serializable{
     @Column(name="cpass")
     private String cpass;
 
-    //@ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name="usr_sur")
-    //private Set<UserRole> roles;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Set<UserRole> roles;
 
-    public void setId(int id) { this.id = id; }
-    public int getId() { return id; }
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private Details details;
+
+    public void setId(String id) { this.id = id; }
+    public String getId() { return id; }
 
     public void setUname(String uname) { this.userName = uname; }
     public String getUname() { return userName; }
@@ -68,6 +74,18 @@ public class User implements Serializable{
     public void setCpass(String cpass) { this.cpass = cpass; }
     public String getCpass() { return cpass; }
 
-    //public void setRoles(Set<UserRole> roles) { this.roles = roles; }
-    //public Set<UserRole> getRoles() { return roles; }
+    public void setRoles(Set<UserRole> roles) { this.roles = roles; }
+    public Set<UserRole> getRoles() { return roles; }
+
+    public void setDetails(Details details){
+        if(details == null){
+            if(this.details != null){
+                this.details.setUser(null);
+            }
+        } else {
+            details.setUser(this);
+        }
+        this.details = details;
+    }
+    public Details getDetails() { return details; }
 }

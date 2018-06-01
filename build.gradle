@@ -31,6 +31,7 @@ ext {
     aspectjVersion="1.7.4"
     validatorVersion="6.0.8.Final"
     springDataVersion="1.3.4.RELEASE"
+    springSecurityVersion="4.2.6.RELEASE"
     hibernateManagerVersion="4.2.5.Final"
 }
 
@@ -42,6 +43,7 @@ dependencies {
     compile "org.springframework:spring-webmvc:${springVersion}" //depends on spring-web, an implementation of Spring MVC
     compile "org.springframework:spring-test:${springVersion}" //TestContext framework
     compile "org.springframework.data:spring-data-jpa:${springDataVersion}" //API for reducing the boilerplate implementation for the data access layer
+    compile "org.springframework.security:spring-security-core:${springSecurityVersion}"
 
     //Hibernate
     compile "org.hibernate:hibernate-validator:${validatorVersion}" //bean validation API

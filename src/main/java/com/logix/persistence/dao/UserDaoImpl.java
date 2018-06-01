@@ -23,13 +23,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     @Transactional
-    public User findById(int id){
+    public User findById(String id){
         return userRepository.findOne(id);
     }
 
     @Override
     @Transactional(rollbackFor = UserNotFoundException.class)
-    public User delete(int id){
+    public User delete(String id){
         User deletedUser = userRepository.findOne(id);
 
         if (deletedUser == null){
