@@ -14,7 +14,8 @@ Note: The version number here is behind on purpose. I jumped ahead a bit to lear
 - PostMan for API calls
 
 ## Usage
-Setup for IntelliJ (converting from maven project)
+Setup for IntelliJ (converting from maven project)<br/>
+`Note:` ___If your importing this as a gradle project then you don't need to do these steps___
 ```text
 ./gradlew cleanIdea
 ./gradlew idea
