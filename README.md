@@ -14,13 +14,18 @@ Note: The version number here is behind on purpose. I jumped ahead a bit to lear
 - PostMan for API calls
 
 ## Usage
+Setup for IntelliJ (converting from maven project)
+```text
+./gradlew cleanIdea
+./gradlew idea
+```
 Testing
 ```text
-gradle appRun
+./gradlew appRun
 ```
 Building
 ```text
-gradle clean build
+./gradlew clean build
 ```
   
 ## Updates to the project from this repo
