@@ -2,9 +2,11 @@ package com.logix.service;
 
 import com.logix.exception.UserNotFoundException;
 import com.logix.model.User;
+import com.logix.model.UserRole;
 import com.logix.persistence.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,24 +27,34 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UserNotFoundException(getClass().getName() + " : User not found with email -> " + email);
         }
 
-        //set user details from user object then save user object.
+        if (user.getDetails() == null){
+            user.getDetails().setEnabled(true);
+            user.getDetails().setAcctNotExpired(true);
+            user.getDetails().setCredsNotExpired(true);
+            user.getDetails().setAcctNotLocked(true);
+        }
 
-        boolean enabled = true;
-        boolean accountNonExpired = true;
-        boolean credentialsNonExpired = true;
-        boolean accountNonLocked = true;
+        List<String> roles = new ArrayList<String>();
+        for (UserRole role : user.getRoles()){
+            roles.add(role.getRole());
+        }
 
-        //test array list of auths
-        List<GrantedAuthority> authorities = new ArrayList<>();
-
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPass().toLowerCase(),
-                enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+                user.getPass().toLowerCase(),
+                user.getDetails().getEnabled(),
+                user.getDetails().getAcctNotExpired(),
+                user.getDetails().getCredsNotExpired(),
+                user.getDetails().getAcctNotLocked(),
+                getAuthorities(roles));
     }
 
     private static List<GrantedAuthority> getAuthorities(List<String> roles){
         List<GrantedAuthority> authorities = new ArrayList<>();
-        //convert user authorities here
+
+        for (String role: roles){
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+
         return authorities;
     }
 

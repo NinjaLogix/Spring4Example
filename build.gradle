@@ -44,6 +44,8 @@ dependencies {
     compile "org.springframework:spring-test:${springVersion}" //TestContext framework
     compile "org.springframework.data:spring-data-jpa:${springDataVersion}" //API for reducing the boilerplate implementation for the data access layer
     compile "org.springframework.security:spring-security-core:${springSecurityVersion}" //core of spring security library providing both authentication and authorization to Java applications
+    compile "org.springframework.security:spring-security-web:${springSecurityVersion}"
+    compile "org.springframework.security:spring-security-config:${springSecurityVersion}"
 
     //Hibernate
     compile "org.hibernate:hibernate-validator:${validatorVersion}" //bean validation API

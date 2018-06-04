@@ -47,6 +47,9 @@ public class RegistrationController {
      * }
      *
      * Email and password will be validated before any data actions.
+     *
+     * Setup API to send back http status 418 if something is wrong, basically this server can't brew coffee because it's a teapot
+     * https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418
      * TODO - need to send back any errors in the ResponseBody
      * @param userDto
      * @return
