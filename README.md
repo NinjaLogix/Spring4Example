@@ -1,7 +1,8 @@
 # <span style="color:green">5.3.0</span> - Spring Security
-[![Release](https://img.shields.io/github/release/NinjaLogix/Spring4Example.svg?style=flat)](https://github.com/NinjaLogix/Spring4Example/releases)
-[![Changelog](https://img.shields.io/badge/changelog-wiki-lightgrey.svg?style=flat-square)](https://github.com/NinjaLogix/Spring4Example/wiki)
-[![Build]()]<br/><br/>
+[![Release](https://img.shields.io/github/release/NinjaLogix/Spring4Example.svg?style=for--the--badge)](https://github.com/NinjaLogix/Spring4Example/releases)
+[![Changelog](https://img.shields.io/badge/changelog-wiki-lightgrey.svg?style=for--the--badge)](https://github.com/NinjaLogix/Spring4Example/wiki)
+[![Build Status](https://travis-ci.org/NinjaLogix/Spring4Example.svg?branch=5.3.0-Spring_Security?style=for--the--badge)](https://travis-ci.org/NinjaLogix/Spring4Example)
+<br/><br/>
 (Please view previous branches for other topics)<br/>
 Note: this will not be using Spring boot as of now. I wanted to focus on each topic with as mininal auto config as possible
 Note: The version number here is behind on purpose. I jumped ahead a bit to learn Spring Batch so the version number had to reflect the changes.
@@ -49,14 +50,9 @@ Building
 `Note:` ___I'm not following these articles to the T for say, but more or less learning from them and making adaptations for my purposes along the way. The main reason I'm updating this repo is for learning purposes so there will always be more than one topic involved.___<br/>
 [Gretty plugin](http://akhikhl.github.io/gretty-doc/Getting-started.html)<br/>
 [Spring Data](https://spring.io/guides/gs/accessing-data-jpa/)<br/>
-[Spring Security](http://www.baeldung.com/security-spring)
+[Spring Security](http://www.baeldung.com/security-spring)<br/>
+[Logback](http://www.baeldung.com/logback)
 
 <!--
-
-TODO -/ Need to add proper badges to readme file
-Contenders are:
-- travis-ci.org
-- 
-
 TODO -/ Start using [GitHub pages](https://pages.github.com/) in my main repo. It's time I started a blog of some sort.
 -->
