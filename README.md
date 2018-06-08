@@ -1,7 +1,7 @@
 # <span style="color:green">5.3.0</span> - Spring Security
 [![Release](https://img.shields.io/github/release/NinjaLogix/Spring4Example.svg?style=for--the--badge)](https://github.com/NinjaLogix/Spring4Example/releases)
 [![Changelog](https://img.shields.io/badge/changelog-wiki-lightgrey.svg?style=for--the--badge)](https://github.com/NinjaLogix/Spring4Example/wiki)
-[![Build Status](https://travis-ci.org/NinjaLogix/Spring4Example.svg?branch=5.3.0-Spring_Security?style=for--the--badge)](https://travis-ci.org/NinjaLogix/Spring4Example)
+[![Build Status](https://travis-ci.org/NinjaLogix/Spring4Example.svg?branch=5.3.0-Spring_Security)](https://travis-ci.org/NinjaLogix/Spring4Example)
 <br/><br/>
 (Please view previous branches for other topics)<br/>
 Note: this will not be using Spring boot as of now. I wanted to focus on each topic with as mininal auto config as possible
